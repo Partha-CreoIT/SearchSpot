@@ -1,4 +1,6 @@
 package com.example.newsapp
+
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,21 +9,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class NewsListAdaptor(private val listener:OnItemClicked) : RecyclerView.Adapter<NewsListAdaptor.NewsViewHolder>() {
+class NewsListAdaptor(private val listener: OnItemClicked) :
+    RecyclerView.Adapter<NewsListAdaptor.NewsViewHolder>() {
 
-    private val items:ArrayList<News> = ArrayList()
+    private val items: ArrayList<News> = ArrayList()
 
-    class NewsViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
-        val titleView:TextView = itemView.findViewById(R.id.title)
-        val image:ImageView = itemView.findViewById(R.id.image)
-        val author:TextView = itemView.findViewById(R.id.author)
+    class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val titleView: TextView = itemView.findViewById(R.id.title)
+        val image: ImageView = itemView.findViewById(R.id.image)
+        val author: TextView = itemView.findViewById(R.id.author)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_home,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_home, parent, false)
         val viewHolder = NewsViewHolder(view)
-        view.setOnClickListener{
-            listener.ItemClick(items[viewHolder.adapterPosition])
+        view.setOnClickListener {
+            listener.itemClick(items[viewHolder.adapterPosition])
         }
         return viewHolder
     }
@@ -38,7 +41,8 @@ class NewsListAdaptor(private val listener:OnItemClicked) : RecyclerView.Adapter
         return items.size
     }
 
-    fun updateNews(updatedNews:ArrayList<News>){
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateNews(updatedNews: ArrayList<News>) {
         items.clear()
         items.addAll(updatedNews)
 
@@ -46,6 +50,6 @@ class NewsListAdaptor(private val listener:OnItemClicked) : RecyclerView.Adapter
     }
 }
 
-interface OnItemClicked{
-    fun ItemClick(items:News)
+interface OnItemClicked {
+    fun itemClick(items: News)
 }
