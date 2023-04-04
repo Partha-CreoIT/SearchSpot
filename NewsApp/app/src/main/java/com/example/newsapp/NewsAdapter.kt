@@ -32,4 +32,10 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewholder>() {
         holder.titleView.text = currentNews.title
         holder.author.text = currentNews.author
     }
+    fun updateData(newData:ArrayList<News>){
+        items.clear()
+        items.addAll(newData)
+
+        notifyDataSetChanged()
+    }
 }
