@@ -20,23 +20,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
-//        val client = OkHttpClient.Builder()
-//            .connectTimeout(30, TimeUnit.SECONDS)
-//            .readTimeout(30, TimeUnit.SECONDS)
-//            .writeTimeout(30, TimeUnit.SECONDS)
-//            .build()
-//
-//
-//        val gson = GsonBuilder().setLenient().create()
-
-
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("https://dev.urbanaut.in/api/v1.4/city/?format=json")
-//            .client(client)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .build()
-
-
         val service = RetrofitClient.createService(ApiService::class.java)
 
         service.getCities().enqueue(object : Callback<CityResponse> {

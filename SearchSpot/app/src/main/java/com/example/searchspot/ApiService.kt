@@ -7,4 +7,7 @@ interface ApiService {
     @GET("city/?format=json")
     fun getCities(): Call<CityResponse>
 
+    @GET("spot/approved/?city=Bengaluru&format=json")
+    fun getSpot(): Call<Spot>
+
 }
