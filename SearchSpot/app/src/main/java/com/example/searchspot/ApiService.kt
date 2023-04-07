@@ -1,12 +1,10 @@
 package com.example.searchspot
 
-import android.telecom.Call
+import retrofit2.Call
 import retrofit2.http.GET
 
 interface ApiService {
-
-
-    @GET("city/")
-    suspend fun getCities(): CityResponse
+    @GET("city/?format=json")
+    fun getCities(): Call<CityResponse>
 
 }

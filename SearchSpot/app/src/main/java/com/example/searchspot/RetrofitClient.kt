@@ -9,9 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://dev.urbanaut.in/api/v1.4/"
-    private val httpClient = OkHttpClient.Builder()
-    private val builder = Retrofit.Builder()
+    const val BASE_URL = "https://dev.urbanaut.in/api/v1.4/"
+    val httpClient = OkHttpClient.Builder()
+    val builder = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
 
@@ -47,7 +47,8 @@ object LoggingInterceptor : Interceptor {
         if (responseBody != null) {
             val responseBodyString = responseBody.string()
             Log.d("API", "Response Body: $responseBodyString")
-            val newResponseBody = ResponseBody.create(responseBody.contentType(), responseBodyString)
+            val newResponseBody =
+                ResponseBody.create(responseBody.contentType(), responseBodyString)
             return response.newBuilder().body(newResponseBody).build()
         }
 

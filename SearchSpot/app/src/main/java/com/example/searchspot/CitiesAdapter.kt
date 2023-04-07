@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CitiesAdapter(var cities: List<City>) :
+class CitiesAdapter(var cities: List<City>?) :
     RecyclerView.Adapter<CitiesAdapter.CityViewHolder>() {
 
     class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,10 +19,16 @@ class CitiesAdapter(var cities: List<City>) :
         return CityViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
-        val city = cities[position]
-        holder.cityNameTextView.text = city.name
+    override fun getItemCount(): Int {
+        return cities?.size ?: 54
     }
 
-    override fun getItemCount() = cities.size
+
+    override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
+        val city = cities?.get(position)
+//        holder.bind(city)
+////        holder.itemView.setOnClickListener { listener(city) }
+        holder.cityNameTextView.text = city?.name
+    }
+
 }

@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnItemClicked {
 
             }
         )
-        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+      MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
     }
 
