@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 
 class CitiesAdapter(private var spots: List<City>) :
     RecyclerView.Adapter<CitiesAdapter.CityViewHolder>() {

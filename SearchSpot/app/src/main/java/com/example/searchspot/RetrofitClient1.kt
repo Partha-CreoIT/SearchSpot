@@ -33,10 +33,10 @@ object LoggingInterceptor1 : Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
 
-        val url = request.url().toString()
-        val method = request.method()
-        val requestBody = request.body()
-        val responseBody = response.body()
+        val url = request.url.toString()
+        val method = request.method
+        val requestBody = request.body
+        val responseBody = response.body
 
         Log.d("API", "URL: $url")
         Log.d("API", "Method: $method")

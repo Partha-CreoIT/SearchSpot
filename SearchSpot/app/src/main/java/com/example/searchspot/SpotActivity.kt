@@ -1,8 +1,8 @@
 package com.example.searchspot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -13,9 +13,15 @@ class SpotActivity : AppCompatActivity() {
     private lateinit var spotRecyclerView: RecyclerView
     private lateinit var adapter: SpotAdapter
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spot)
+
+        supportActionBar?.title = "Spots Are"
+
+
 
 
         spotRecyclerView = findViewById(R.id.spotRecyclerView)
@@ -23,6 +29,8 @@ class SpotActivity : AppCompatActivity() {
 
 
         val service = RetrofitClient1.createService(ApiService::class.java)
+
+
 
         intent.getStringExtra("cityName")?.let {
             service.getSpots(it).enqueue(object : Callback<Spot> {
@@ -45,5 +53,6 @@ class SpotActivity : AppCompatActivity() {
 
             })
         }
+
     }
 }
