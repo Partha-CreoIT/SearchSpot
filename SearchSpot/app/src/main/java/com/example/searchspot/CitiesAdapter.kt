@@ -7,17 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CitiesAdapter(var spots: List<City>) :
+class CitiesAdapter(private var spots: List<City>) :
     RecyclerView.Adapter<CitiesAdapter.CityViewHolder>() {
 
     class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(item: City?){
+        fun bind(item: City?) {
             val cityNameTextView: TextView = itemView.findViewById(R.id.cityNameTextView)
             cityNameTextView.text = item?.name
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, SpotActivity::class.java)
+                intent.putExtra("cityName", item?.name)
                 itemView.context.startActivity(intent)
 
             }
@@ -31,12 +32,12 @@ class CitiesAdapter(var spots: List<City>) :
     }
 
     override fun getItemCount(): Int {
-        return spots?.size ?: 54
+        return spots.size
     }
 
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
-        val spot = spots?.get(position)
+        val spot = spots[position]
         holder.bind(spot)
     }
 

@@ -17,32 +17,33 @@ class SpotActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spot)
 
+
         spotRecyclerView = findViewById(R.id.spotRecyclerView)
         spotRecyclerView.layoutManager = LinearLayoutManager(this)
 
 
-
-
         val service = RetrofitClient1.createService(ApiService::class.java)
 
-        service.getSpot().enqueue(object : Callback<Spot> {
-            override fun onResponse(call: Call<Spot>, response: Response<Spot>) {
+        intent.getStringExtra("cityName")?.let {
+            service.getSpots(it).enqueue(object : Callback<Spot> {
+                override fun onResponse(call: Call<Spot>, response: Response<Spot>) {
 
-                if (response.isSuccessful) {
-                    val spotList = response.body()
-                    if (spotList != null) {
-                        adapter = SpotAdapter(spotList.results)
-                        adapter.also { spotRecyclerView.adapter = it }
+                    if (response.isSuccessful) {
+                        val spotList = response.body()
+                        if (spotList != null) {
+                            adapter = SpotAdapter(spotList.results)
+                            adapter.also { spotRecyclerView.adapter = it }
+                        }
+                    } else {
+                        Log.d("SpotActivity", "Response not successful")
                     }
-                } else {
-                    Log.d("MainActivity", "Response not successful")
                 }
-            }
 
-            override fun onFailure(call: Call<Spot>, t: Throwable) {
-                Log.d("MainActivity", "onFailure: ${t.message}")
-            }
+                override fun onFailure(call: Call<Spot>, t: Throwable) {
+                    Log.d("SpotActivity", "onFailure: ${t.message}")
+                }
 
-        })
+            })
+        }
     }
 }
