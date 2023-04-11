@@ -1,18 +1,26 @@
 package com.example.searchspot
 
+import MainAdapter
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.searchspot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CitiesAdapter
+
+//    lateinit var adapter1: CitiesAdapter
+    private val TAG = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: CityViewModel
+    private val retrofitService = ApiInterface.getInstance()
+    val adapter = MainAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +32,25 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        viewModel = ViewModelProvider(
+            this,
+            MyViewModel(CityRepo(retrofitService))
+        ).get(CityViewModel::class.java)
+        binding.recyclerView.adapter = adapter
 
-        val service = RetrofitClient.createService(ApiService::class.java)
+        viewModel.cityList.observe(this) {
+            Log.d(TAG, "onCreate: $it")
+            adapter.setCityList(it)
+            adapter.also { recyclerView.adapter = it }
+        }
+        viewModel.errorMessage.observe(this, Observer {
+        })
+        viewModel.getAllCity()
+
+
+        /*val service = RetrofitClient.createService(ApiService::class.java)
 
         service.getCities().enqueue(object : Callback<CityResponse> {
             override fun onResponse(call: Call<CityResponse>, response: Response<CityResponse>) {
@@ -45,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "onFailure: ${t.message}")
             }
 
-        })
+        })*/
     }
 
 }

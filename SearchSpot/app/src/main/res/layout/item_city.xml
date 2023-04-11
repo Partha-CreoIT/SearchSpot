@@ -15,7 +15,9 @@
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:textColor="@color/black"/>
 
 
 

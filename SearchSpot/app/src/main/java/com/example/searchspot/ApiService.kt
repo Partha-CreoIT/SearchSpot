@@ -14,8 +14,7 @@ interface ApiService {
         @Query("city") city: String,
         @Query("format") format: String = "json"
     ): Call<Spot>
-    @GET("https://d10y46cwh6y6x1.cloudfront.net/")
-    fun getImages(): Call<Spot>
+
 }
 
 

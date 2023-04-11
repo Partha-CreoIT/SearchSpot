@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 
 class CitiesAdapter(private var spots: List<City>) :
     RecyclerView.Adapter<CitiesAdapter.CityViewHolder>() {
@@ -17,6 +16,7 @@ class CitiesAdapter(private var spots: List<City>) :
         fun bind(item: City?) {
             val cityNameTextView: TextView = itemView.findViewById(R.id.cityNameTextView)
             cityNameTextView.text = item?.name
+
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, SpotActivity::class.java)
                 intent.putExtra("cityName", item?.name)

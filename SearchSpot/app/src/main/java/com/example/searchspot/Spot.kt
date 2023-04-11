@@ -1,5 +1,7 @@
 package com.example.searchspot
 
+import com.google.gson.annotations.SerializedName
+
 data class Spot(
     val count: Int,
     val next: String,

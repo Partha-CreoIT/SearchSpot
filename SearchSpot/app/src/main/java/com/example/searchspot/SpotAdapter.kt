@@ -1,6 +1,5 @@
 package com.example.searchspot
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,20 +14,24 @@ class SpotAdapter(private var spots: List<Spot.Result?>) :
     class SpotViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(item: Spot.Result  ?) {
+        fun bind(item: Spot.Result?) {
             val cityNameTextView: TextView = itemView.findViewById(R.id.cityNameTextView1)
             cityNameTextView.text = item?.name
 
-            val category:TextView =itemView.findViewById(R.id.title)
-            category.text = item?.categories_name.toString()
 
-            val imageView:ImageView = itemView.findViewById(R.id.image)
+            val category: TextView = itemView.findViewById(R.id.title)
+            category.text = item?.categories_name.toString().replace("[", "").replace("]", "")
+
+
+            val address: TextView = itemView.findViewById(R.id.address)
+            address.text = item?.address
+
+            val imageView: ImageView = itemView.findViewById(R.id.image)
             imageView.load("https://d10y46cwh6y6x1.cloudfront.net/${item?.photo}")
 
 
-
-
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpotViewHolder {
