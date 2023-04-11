@@ -8,25 +8,7 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitClient {
-    const val BASE_URL = "https://dev.urbanaut.in/api/v1.4/"
-    val httpClient = OkHttpClient.Builder()
-    val builder = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
 
-    private var retrofit = builder.build()
-
-    fun <T> createService(serviceClass: Class<T>): T {
-        if (!httpClient.interceptors().contains(LoggingInterceptor)) {
-            httpClient.addInterceptor(LoggingInterceptor)
-            builder.client(httpClient.build())
-            retrofit = builder.build()
-        }
-
-        return retrofit.create(serviceClass)
-    }
-}
 
 object LoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

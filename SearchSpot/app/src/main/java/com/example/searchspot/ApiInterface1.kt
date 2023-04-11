@@ -7,14 +7,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiInterface {
-    @GET("city/?format=json")
-    fun getCities(): Call<CityResponse>
+interface ApiInterface1 {
+    @GET("spot/approved/")
+    fun getSpots(
+        @Query("city") city: String,
+        @Query("format") format: String = "json"
+    ): Call<Spot>
 
-    companion object {
-        var retrofitService: ApiInterface? = null
-        fun getInstance(): ApiInterface {
-            if (retrofitService == null) {
+    companion object{
+        var retrofitService1:ApiInterface? = null
+        fun getInstance():ApiInterface{
+            if (retrofitService1 == null){
                 val retrofitBuilder = Retrofit.Builder()
                     .baseUrl("https://dev.urbanaut.in/api/v1.4/")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -25,9 +28,9 @@ interface ApiInterface {
 
                 }
                 val retrofit = retrofitBuilder.build()
-                retrofitService = retrofit.create(ApiInterface::class.java)
+                retrofitService1 = retrofit.create(ApiInterface::class.java)
             }
-            return retrofitService!!
+            return retrofitService1!!
         }
     }
 }

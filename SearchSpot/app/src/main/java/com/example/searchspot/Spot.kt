@@ -6,7 +6,7 @@ data class Spot(
     val count: Int,
     val next: String,
     val previous: Any,
-    val results: List<Result>
+    @SerializedName("results")val results: List<Result>
 ) {
     data class Result(
         val actual_image: String,

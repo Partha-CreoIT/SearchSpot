@@ -48,7 +48,7 @@ class MainViewHolder(val binding: ItemCityBinding) : RecyclerView.ViewHolder(bin
         cityNameTextView.text = item?.name
         binding.cityNameTextView.text = item?.name
         itemView.setOnClickListener {
-            val intent = Intent(itemView.context, MainActivity::class.java)
+            val intent = Intent(itemView.context, SpotActivity::class.java)
             intent.putExtra("cityName", item?.name)
             itemView.context.startActivity(intent)
         }
