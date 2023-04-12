@@ -7,29 +7,29 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.searchspot.databinding.ActivitySpotBinding
+import com.example.searchspot.databinding.FetchedSpotBinding
 
 class SpotAdapter1 : RecyclerView.Adapter<MainViewHolder1>() {
 
-    var spots = mutableListOf<Spot>()
-    fun selectSpotList(spots: List<Spot>) {
-        this.spots = spots.toMutableList()
+    var spotss = mutableListOf<Spot.Result>()
+    fun selectSpotList(spots: List<Spot.Result>) {
+        this.spotss = spots.toMutableList()
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder1 {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ActivitySpotBinding.inflate(inflater, parent, false)
+        val binding = FetchedSpotBinding.inflate(inflater, parent, false)
         return MainViewHolder1(binding)
     }
 
     override fun getItemCount(): Int {
-       return spots.size
+        return spotss.size
     }
 
     override fun onBindViewHolder(holder: MainViewHolder1, position: Int) {
-        val spot = spots[position]
-        holder.bind(spots)
+        val spot = spotss[position]
+        holder.bind(spot)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -39,10 +39,12 @@ class SpotAdapter1 : RecyclerView.Adapter<MainViewHolder1>() {
 
 }
 
-class MainViewHolder1(val binding: ActivitySpotBinding) : RecyclerView.ViewHolder(binding.root) {
+class MainViewHolder1(val binding : FetchedSpotBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Spot.Result?) {
-        val cityNameTextView: TextView = itemView.findViewById(R.id.cityNameTextView1)
-        cityNameTextView.text = item?.name
+        val cityNameTextView1: TextView = itemView.findViewById(R.id.cityNameTextView1)
+        cityNameTextView1.text = item?.name
+        binding.cityNameTextView1.text = item?.name
+
 
 
         val category: TextView = itemView.findViewById(R.id.title)

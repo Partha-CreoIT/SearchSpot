@@ -1,76 +1,66 @@
 package com.example.searchspot
 
 import MainAdapter
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.searchspot.databinding.ActivityMainBinding
+import org.koin.android.ext.android.inject
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-
-//    lateinit var adapter1: CitiesAdapter
     private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: CityViewModel
+    private val viewModel by inject<CityViewModel>()
     private val retrofitService = ApiInterface.getInstance()
-    val adapter = MainAdapter()
+    private val adapter = MainAdapter()
+    private val cityViewModel: CityViewModel by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setTitle("Select The City")
+        supportActionBar?.title = "Select The City"
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
+/*        val dividerDrawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.divider)
+        val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        dividerItemDecoration.setDrawable(dividerDrawable!!)
+        recyclerView.addItemDecoration(dividerItemDecoration)*/
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(
-            this,
-            MyViewModel(CityRepo(retrofitService))
-        ).get(CityViewModel::class.java)
         binding.recyclerView.adapter = adapter
+
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
+        cityViewModel.getAllCity()
+        viewModel.getAllCity()
 
         viewModel.cityList.observe(this) {
             Log.d(TAG, "onCreate: $it")
             adapter.setCityList(it)
             adapter.also { recyclerView.adapter = it }
         }
-        viewModel.errorMessage.observe(this, Observer {
-        })
-        viewModel.getAllCity()
+        viewModel.errorMessage.observe(this, Observer {})
 
-
-        /*val service = RetrofitClient.createService(ApiService::class.java)
-
-        service.getCities().enqueue(object : Callback<CityResponse> {
-            override fun onResponse(call: Call<CityResponse>, response: Response<CityResponse>) {
-
-                if (response.isSuccessful) {
-                    val cityList = response.body()
-                    if (cityList != null) {
-                        adapter = CitiesAdapter(cityList.results)
-                        adapter.also { recyclerView.adapter = it }
-                    }
-                } else {
-                    Log.d("MainActivity", "Response not successful")
-                }
-            }
-
-            override fun onFailure(call: Call<CityResponse>, t: Throwable) {
-                Log.d("MainActivity", "onFailure: ${t.message}")
-            }
-
-        })*/
     }
 
 }

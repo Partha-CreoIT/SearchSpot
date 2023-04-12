@@ -4,16 +4,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager // import LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.searchspot.City
-import com.example.searchspot.MainActivity
-import com.example.searchspot.R
-import com.example.searchspot.SpotActivity
+import com.example.searchspot.*
 import com.example.searchspot.databinding.ActivityMainBinding
 import com.example.searchspot.databinding.ItemCityBinding
+import org.koin.java.KoinJavaComponent.inject
 
 class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
 
     var cities = mutableListOf<City>()
+
+    private val citiesVm by inject<CityViewModel>(CityViewModel::class.java)
     fun setCityList(cities : List<City>) {
         this.cities = cities.toMutableList()
         notifyDataSetChanged()

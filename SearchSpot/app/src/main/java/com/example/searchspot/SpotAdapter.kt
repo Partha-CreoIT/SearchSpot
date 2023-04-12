@@ -35,8 +35,8 @@ class SpotAdapter(private var spots: List<Spot.Result?>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpotViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fetched_spot, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.fetched_spot, parent, false)
         return SpotViewHolder(itemView)
     }
 

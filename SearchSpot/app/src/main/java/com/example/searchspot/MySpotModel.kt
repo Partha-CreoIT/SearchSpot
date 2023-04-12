@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 
 class MySpotModel constructor(private val repository: SpotRepo) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(CityViewModel::class.java)){
+        return if (modelClass.isAssignableFrom(SpotViewModel::class.java)){
             SpotViewModel(this.repository) as T
         }
         else{

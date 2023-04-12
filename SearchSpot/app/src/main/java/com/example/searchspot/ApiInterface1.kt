@@ -15,8 +15,8 @@ interface ApiInterface1 {
     ): Call<Spot>
 
     companion object{
-        var retrofitService1:ApiInterface? = null
-        fun getInstance():ApiInterface{
+        var retrofitService1:ApiInterface1? = null
+        fun getInstance():ApiInterface1{
             if (retrofitService1 == null){
                 val retrofitBuilder = Retrofit.Builder()
                     .baseUrl("https://dev.urbanaut.in/api/v1.4/")
@@ -28,7 +28,7 @@ interface ApiInterface1 {
 
                 }
                 val retrofit = retrofitBuilder.build()
-                retrofitService1 = retrofit.create(ApiInterface::class.java)
+                retrofitService1 = retrofit.create(ApiInterface1::class.java)
             }
             return retrofitService1!!
         }
