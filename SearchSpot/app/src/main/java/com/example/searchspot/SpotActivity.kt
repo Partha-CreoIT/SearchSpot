@@ -1,14 +1,11 @@
 package com.example.searchspot
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.searchspot.databinding.ActivitySpotBinding
@@ -28,17 +25,10 @@ class SpotActivity : AppCompatActivity() {
         val spotRecyclerView = findViewById<RecyclerView>(R.id.spotRecyclerView)
         spotRecyclerView.adapter = adapter
         spotRecyclerView.layoutManager = LinearLayoutManager(this)
-
-
-        var dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
-            dividerItemDecoration.setDrawable(it)
-        }
-        spotRecyclerView.addItemDecoration(dividerItemDecoration)
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding = ActivitySpotBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
 
         viewModel = ViewModelProvider(
@@ -57,10 +47,15 @@ class SpotActivity : AppCompatActivity() {
 
         viewModel.errorMessage.observe(this, Observer {
         })
+        binding.appBar1.back.setOnClickListener {
+            val intent =  Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         if (city != null) {
-            supportActionBar?.title = "Spots In $city"
+            binding.appBar1.title.text = "Spots In $city"
             viewModel.getAllSpots(city)
         }
+
 
 
     }

@@ -39,12 +39,12 @@ class SpotAdapter1 : RecyclerView.Adapter<MainViewHolder1>() {
 
 }
 
-class MainViewHolder1(val binding : FetchedSpotBinding) : RecyclerView.ViewHolder(binding.root) {
+class MainViewHolder1(val binding: FetchedSpotBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Spot.Result?) {
         val cityNameTextView1: TextView = itemView.findViewById(R.id.cityNameTextView1)
-        cityNameTextView1.text = item?.name
-        binding.cityNameTextView1.text = item?.name
-
+        cityNameTextView1.text = item?.name ?: ""
+        val cityNameText = item?.name ?: ""
+        binding.cityNameTextView1.text = "$cityNameText"
 
 
         val category: TextView = itemView.findViewById(R.id.title)
@@ -52,7 +52,9 @@ class MainViewHolder1(val binding : FetchedSpotBinding) : RecyclerView.ViewHolde
 
 
         val address: TextView = itemView.findViewById(R.id.address)
-        address.text = item?.address
+        val addres = item?.address ?: ""
+        val a = "Address: "
+        binding.address.text = "$a $addres"
 
         val imageView: ImageView = itemView.findViewById(R.id.image)
         imageView.load("https://d10y46cwh6y6x1.cloudfront.net/${item?.photo}")
