@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.errorMessage.observe(this, Observer {})
         binding.appBar.btn.setOnClickListener {
-            val intent = Intent(this,MainActivity2::class.java)
+            val intent = Intent(this,LocationActivity::class.java)
             startActivity(intent)
         }
 
